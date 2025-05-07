@@ -10,7 +10,14 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # 添加执行权限并设置为入口点脚本
 COPY docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
+
+RUN apt-get update &&\
+    apt install --only-upgrade linux-libc-dev &&\
+    apt-get install -y iproute2 vim netcat-openbsd &&\
+    addgroup --gid 10014 choreo &&\
+    adduser --disabled-password  --no-create-home --uid 10008 --ingroup choreo choreouser &&\
+    usermod -aG sudo choreouser &&\
+    chmod +x /docker-entrypoint.sh
 
 # 暴露端口
 EXPOSE 8080
