@@ -13,7 +13,7 @@ COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
 # 暴露端口
-EXPOSE 80
+EXPOSE 8080
 
 # 设置入口点
 ENTRYPOINT ["/docker-entrypoint.sh"]
